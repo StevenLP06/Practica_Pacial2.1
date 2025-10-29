@@ -55,4 +55,32 @@ class ProductController extends Controller
         $product->delete();
         return redirect()->route('products.index');
     }
+
+    // ORDENAR POR ID DESCENDENTE
+    public function product_sort()
+    {
+        $products_desc = Product::orderBy('id', 'desc')->get();
+        $products = Product::all();
+        return view('Products.product', compact('products', 'products_desc'));
+    }
+
+    public function product_quantity_asc()
+    {
+        $products_asc = Product::orderBy('quantity', 'asc')->get();
+        $products = Product::all();
+        return view('Products.product_quantity', compact('products', 'products_asc'));
+    }
+
+    public function product_alfabetico()
+    {
+        $products_name = Product::orderBy('name', 'asc')->get();
+        $product = Product::all();
+        return view('Products.product_alfabetico', compact('products_name', 'product'));
+    }
+
+    public function product_search(Request $request)
+    {
+        $products_search = Product::where('name', 'LIKE', "%{$request->name}%")->get();
+        return view('Products.product_search', compact('products_search'));
+    }   
 }

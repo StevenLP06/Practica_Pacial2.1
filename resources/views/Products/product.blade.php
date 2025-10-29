@@ -47,6 +47,40 @@
                     </tbody>
                 </table>
             </div>
+
+            <!-- ID ORDENADA DESCENDENTE -->
+            <div class="table-responsive">
+                <h2 class="text-center">Registro de Productos por ID DESCENDENTE</h2>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Nombre</th>
+                            <th>Cantidad</th>
+                            <th>Precio</th>
+                            <th>Opciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($products_desc as $product_desc)
+                            <tr>
+                                <th>{{ $product_desc->id }}</th>
+                                <td>{{ $product_desc->name }}</td>
+                                <td>{{ $product_desc->quantity }}</td>
+                                <td>{{ $product_desc->price }}</td>
+                                <td>
+                                    <a href="{{ route('products.edit', $product->id )}}" class="btn btn-primary">Editar</a>
+                                    <form action="{{ route('products.destroy', $product->id )}}" method="post">
+                                        @csrf
+                                        @method('delete')
+                                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 @include('footer')
