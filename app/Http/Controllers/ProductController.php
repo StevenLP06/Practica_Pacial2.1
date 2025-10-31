@@ -83,4 +83,23 @@ class ProductController extends Controller
         $products_search = Product::where('name', 'LIKE', "%{$request->name}%")->get();
         return view('Products.product_search', compact('products_search'));
     }   
+
+    public function product_max()
+    {
+        $product_max = Product::orderBy('price', 'desc')->first();
+        return view('Products.product_max', compact('product_max'));
+    }
+
+    public function product_letter_a()
+    {
+        $products_letter_a = Product::where('name', 'LIKE', "A%")->get();
+        $products = Product::all();
+        return view('Products.product_letter_a', compact('products_letter_a', 'products'));
+    }
+
+    public function product_sum()
+    {
+        $product_sum = Product::sum('price');
+        return view('Products.product_sum', compact('product_sum'));
+    }
 }

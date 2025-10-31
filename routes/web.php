@@ -20,3 +20,29 @@ Route::get('/product_alfabetico', [ProductController::class, 'product_alfabetico
 
 // BUSCAR NOMBRE
 Route::get('/product_search', [ProductController::class, 'product_search'])->name('products.product_search');
+
+// DEVOLVER MAYOR
+Route::get('/product_max', [ProductController::class, 'product_max'])->name('products.product_max');
+
+// DEVOLVER PRODUCTOS POR LA LETRA A
+Route::get('/product_letter_a', [ProductController::class, 'product_letter_a'])->name('products.product_letter_a');
+
+// DEVOLVER LA SUMA DE TODOS LOS PRECIOS
+Route::get('/product_sum', [ProductController::class, 'product_sum'])->name('products.product_sum');
+
+// RUTA MIDDLEWARE
+// Route::get('/update', function(){
+//     return 'Funciona';
+// })->middleware('updated');
+
+
+Route::middleware('verify.product')->group(function () {
+    Route::put('/products/{id}/update', [ProductController::class, 'update']);
+    Route::delete('/products/{id}/delete', [ProductController::class, 'destroy']);
+});
+
+
+// RUTA MIDDLEWARE  
+Route::get('/product/{id}', function(){
+    return 'Puede seguir';
+})->middleware('Price');
